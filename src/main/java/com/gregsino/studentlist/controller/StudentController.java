@@ -3,7 +3,6 @@ package com.gregsino.studentlist.controller;
 import com.gregsino.studentlist.exception.ResourceNotFoundException;
 import com.gregsino.studentlist.model.Student;
 import com.gregsino.studentlist.repository.StudentRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,8 +15,11 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/v1")
 public class StudentController {
-    @Autowired
-    private StudentRepository studentRepository;
+    private final StudentRepository studentRepository;
+
+    public StudentController(StudentRepository studentRepository) {
+        this.studentRepository = studentRepository;
+    }
 
     @GetMapping("/students")
     public List<Student> getAllStudents() {
